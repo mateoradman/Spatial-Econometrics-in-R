@@ -1,6 +1,7 @@
-#Assignment 2 (Mateo)
+#Spatial Econometrics Project in R
 
-#Load the libraries
+#Load the libraries and make sure you have them installed. 
+#Otherwise use install.packages("name_of_the_package") command
 library(stargazer) # For nice output.
 library(spdep)     # For the spatial analysis.
 library(maptools)  # For mapping.
@@ -9,13 +10,13 @@ library(classInt)  # For class intervals when mapping
 library(Hmisc) #Useful tool for correlation matrices
 library(corrplot) #Plotting correlation matrix
 
-#Set the working directory 
-setwd("/Users/mateoradman/Documents/Assignment 2")
+#Set the working directory you wish your plots to be saved in
+setwd("~/your_folder_path")
 #Load the data
-wijkshp <- readShapeSpatial("/Users/mateoradman/Documents/Wijk/wijk_2017_v3.shp")
+wijkshp <- readShapeSpatial("~/your_folder_path/wijk_2017_v3.shp")
 #Summary of the data to detect missing values
 stargazer(wijkshp@data, type = "text")
-#Missing values are present, hence we need to clean our data
+#Missing values are present and some variables contain weird values, hence we need to clean our data
 #Fill in missing values in all variables that we are going to use
 wijkshp@data[which(wijkshp$P_HUURWON<0),]$P_HUURWON <-0
 wijkshp@data[which(wijkshp$P_STADVERW<0),]$P_STADVERW <-0
@@ -24,6 +25,7 @@ wijkshp@data[which(wijkshp$GEM_HH_GR<0),]$GEM_HH_GR <-0
 wijkshp@data[which(wijkshp$AF_ONDVRT<0),]$AF_ONDVRT <-0
 wijkshp@data[which(wijkshp$BEV_DICHTH<0),]$BEV_DICHTH <-0
 wijkshp@data[which(wijkshp$WOZ<0),]$WOZ <-0
+#Filter out the area which is not land 
 wijkshp <- wijkshp[wijkshp$WATER=="NEE",]
 
 #Create centroids
