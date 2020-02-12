@@ -16,15 +16,7 @@ setwd("~/your_folder_path")
 wijkshp <- readShapeSpatial("~/your_folder_path/wijk_2017_v3.shp")
 #Summary of the data to detect missing values
 stargazer(wijkshp@data, type = "text")
-#Missing values are present and some variables contain weird values, hence we need to clean our data
-#Fill in missing values in all variables that we are going to use
-wijkshp@data[which(wijkshp$P_HUURWON<0),]$P_HUURWON <-0
-wijkshp@data[which(wijkshp$P_STADVERW<0),]$P_STADVERW <-0
-wijkshp@data[which(wijkshp$AF_TREINST<0),]$AF_TREINST <-0
-wijkshp@data[which(wijkshp$GEM_HH_GR<0),]$GEM_HH_GR <-0
-wijkshp@data[which(wijkshp$AF_ONDVRT<0),]$AF_ONDVRT <-0
-wijkshp@data[which(wijkshp$BEV_DICHTH<0),]$BEV_DICHTH <-0
-wijkshp@data[which(wijkshp$WOZ<0),]$WOZ <-0
+
 #Filter out the area which is not land 
 wijkshp <- wijkshp[wijkshp$WATER=="NEE",]
 
